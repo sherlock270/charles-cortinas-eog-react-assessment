@@ -18,7 +18,16 @@ const Chip = withStyles(cardStyles)(ChipRaw);
 class Weather extends Component {
   componentDidMount() {
     this.props.onLoad();
+    this.callWeather();
   }
+
+  callWeather() {
+    setTimeout(() => {
+      this.props.onLoad();
+      this.callWeather();
+    }, 4000);
+  }
+
   render() {
     const {
       loading,
@@ -26,7 +35,7 @@ class Weather extends Component {
       weather_state_name,
       temperatureinFahrenheit
     } = this.props;
-    if (loading) return <LinearProgress />;
+    //if (loading) return <LinearProgress />;
     return (
       <Chip
         label={`Weather in ${name}: ${weather_state_name} and ${temperatureinFahrenheit}°`}
@@ -42,6 +51,7 @@ const mapState = (state, ownProps) => {
     weather_state_name,
     temperatureinFahrenheit
   } = state.weather;
+  console.log("state", state);
   return {
     loading,
     name,
@@ -53,9 +63,7 @@ const mapState = (state, ownProps) => {
 const mapDispatch = dispatch => ({
   onLoad: () =>
     dispatch({
-      type: actions.FETCH_WEATHER,
-      longitude: -95.3698,
-      latitude: 29.7604
+      type: actions.FETCH_DRONE_DATA
     })
 });
 
