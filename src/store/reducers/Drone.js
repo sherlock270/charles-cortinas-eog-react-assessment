@@ -11,7 +11,6 @@ const initialState = {
 };
 
 const startLoading = (state, action) => {
-  console.log("drone loading");
   return { ...state, loading: true };
 };
 

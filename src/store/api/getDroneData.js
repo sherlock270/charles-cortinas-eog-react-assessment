@@ -2,7 +2,6 @@ import "isomorphic-fetch";
 
 const getDroneData = async () => {
   // Using the create-react-app's proxy for CORS issues
-  console.log("drone api called");
   const response = await fetch(
     `https://react-assessment-api.herokuapp.com/api/drone/`
   );

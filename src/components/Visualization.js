@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import * as actions from "../store/actions";
+import Map from "./Map";
 
 class Visualization extends React.Component {
   componentDidMount() {
@@ -25,17 +26,31 @@ class Visualization extends React.Component {
       weather_state_name
     } = this.props;
 
+    let updatedAt = new Date(timestamp);
+    console.log('metric', this.props.metric);
+
     return (
       <div>
         <p>latitude: {latitude}</p>
         <p>longitude: {longitude}</p>
         <p>
-          It's {temperatureinFahrenheit} degrees and {weather_state_name} in{" "}
-          {name}
+          It's {Math.round(temperatureinFahrenheit)} degrees and{" "}
+          {weather_state_name} in {name}
         </p>
         <p>
-          Last update: {Math.floor((Date.now() - timestamp) / 1000)} seconds ago
+          Last update: {updatedAt.toDateString()} {updatedAt.toTimeString()}
         </p>
+        <Map
+          isMarkerShown
+          googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyD07ZxSgO1W7teqO2voh6nDsBF5ayf3yOM&v=3.exp&libraries=geometry,drawing,places"
+          loadingElement={<div style={{ height: `100%`, width: "75%" }} />}
+          containerElement={
+            <div style={{ height: `400px`, width: "75%", margin: "auto" }} />
+          }
+          mapElement={<div style={{ height: `100%`, width: "75%" }} />}
+          lat={latitude}
+          lon={longitude}
+        />
       </div>
     );
   }
@@ -49,7 +64,7 @@ const mapState = (state, ownProps) => {
     temperatureinFahrenheit
   } = state.weather;
 
-  const { latitude, longitude, timestamp } = state.drone;
+  const { latitude, longitude, timestamp, metric } = state.drone;
 
   return {
     loading,
@@ -58,7 +73,8 @@ const mapState = (state, ownProps) => {
     temperatureinFahrenheit,
     latitude,
     longitude,
-    timestamp
+    timestamp,
+    metric
   };
 };
 
