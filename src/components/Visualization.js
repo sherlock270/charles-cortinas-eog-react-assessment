@@ -27,7 +27,10 @@ class Visualization extends React.Component {
     } = this.props;
 
     let updatedAt = new Date(timestamp);
-    console.log('metric', this.props.metric);
+    const mapUrl =
+      "https://maps.googleapis.com/maps/api/js?key=" +
+      process.env.API_KEY +
+      "&v=3.exp&libraries=geometry,drawing,places";
 
     return (
       <div>
@@ -42,7 +45,7 @@ class Visualization extends React.Component {
         </p>
         <Map
           isMarkerShown
-          googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyD07ZxSgO1W7teqO2voh6nDsBF5ayf3yOM&v=3.exp&libraries=geometry,drawing,places"
+          googleMapURL={mapUrl}
           loadingElement={<div style={{ height: `100%`, width: "75%" }} />}
           containerElement={
             <div style={{ height: `400px`, width: "75%", margin: "auto" }} />

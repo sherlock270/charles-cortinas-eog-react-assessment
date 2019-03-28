@@ -4,7 +4,6 @@ import createSagaMiddleware from "redux-saga";
 import sagas from "./sagas";
 import weatherReducer from "./reducers/Weather";
 import droneReducer from "./reducers/Drone";
-import logger from "redux-logger";
 
 export default () => {
   const rootReducer = combineReducers({
