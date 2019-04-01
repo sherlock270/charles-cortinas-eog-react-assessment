@@ -7,7 +7,8 @@ const initialState = {
   latitude: 0,
   longitude: 0,
   uom: "temperature - fahrenheit",
-  accuracy: 0
+  accuracy: 0,
+  droneData: []
 };
 
 const startLoading = (state, action) => {

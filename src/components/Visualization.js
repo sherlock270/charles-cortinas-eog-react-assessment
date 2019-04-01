@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import * as actions from "../store/actions";
 import Map from "./Map";
+import Chart from "./Chart";
 
 class Visualization extends React.Component {
   componentDidMount() {
@@ -23,7 +24,8 @@ class Visualization extends React.Component {
       longitude,
       temperatureinFahrenheit,
       name,
-      weather_state_name
+      weather_state_name,
+      droneData
     } = this.props;
 
     let updatedAt = new Date(timestamp);
@@ -31,6 +33,15 @@ class Visualization extends React.Component {
       "https://maps.googleapis.com/maps/api/js?key=" +
       process.env.API_KEY +
       "&v=3.exp&libraries=geometry,drawing,places";
+
+    let metrics = [];
+    let timestamps = [];
+    if (droneData) {
+      for (let point of droneData) {
+        metrics.push(point.metric);
+        timestamps.push(point.timestamp);
+      }
+    }
 
     return (
       <div>
@@ -54,6 +65,7 @@ class Visualization extends React.Component {
           lat={latitude}
           lon={longitude}
         />
+        {metrics.length > 0 ? <Chart x={timestamps} y={metrics} /> : null}
       </div>
     );
   }
@@ -67,7 +79,7 @@ const mapState = (state, ownProps) => {
     temperatureinFahrenheit
   } = state.weather;
 
-  const { latitude, longitude, timestamp, metric } = state.drone;
+  const { latitude, longitude, timestamp, metric, droneData } = state.drone;
 
   return {
     loading,
@@ -77,7 +89,8 @@ const mapState = (state, ownProps) => {
     latitude,
     longitude,
     timestamp,
-    metric
+    metric,
+    droneData
   };
 };
 
