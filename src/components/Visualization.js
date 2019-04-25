@@ -3,6 +3,16 @@ import { connect } from "react-redux";
 import * as actions from "../store/actions";
 import Map from "./Map";
 import Chart from "./Chart";
+import { withStyles } from "@material-ui/core/styles";
+
+const styles = theme => ({
+  wrapper: {
+    margin: "auto",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center"
+  }
+});
 
 class Visualization extends React.Component {
   componentDidMount() {
@@ -25,7 +35,8 @@ class Visualization extends React.Component {
       temperatureinFahrenheit,
       name,
       weather_state_name,
-      droneData
+      droneData,
+      classes
     } = this.props;
 
     let updatedAt = new Date(timestamp);
@@ -45,7 +56,7 @@ class Visualization extends React.Component {
     }
 
     return (
-      <div>
+      <div className={classes.wrapper}>
         <p>latitude: {latitude}</p>
         <p>longitude: {longitude}</p>
         <p>
@@ -60,9 +71,13 @@ class Visualization extends React.Component {
           googleMapURL={mapUrl}
           loadingElement={<div style={{ height: `100%`, width: "75%" }} />}
           containerElement={
-            <div style={{ height: `400px`, width: "75%", margin: "auto" }} />
+            <div
+              style={{ height: `450px`, width: "900px", margin: "20px auto" }}
+            />
           }
-          mapElement={<div style={{ height: `100%`, width: "75%" }} />}
+          mapElement={
+            <div style={{ height: `100%`, width: "100%", margin: "auto" }} />
+          }
           lat={latitude}
           lon={longitude}
         />
@@ -105,4 +120,4 @@ const mapDispatch = dispatch => ({
 export default connect(
   mapState,
   mapDispatch
-)(Visualization);
+)(withStyles(styles)(Visualization));
