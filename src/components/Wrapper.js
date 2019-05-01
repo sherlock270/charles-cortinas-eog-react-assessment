@@ -5,7 +5,7 @@ const styles = theme => ({
   wrapper: {
     background: theme.palette.background.main,
     height: "auto",
-    padding: "50px"
+    paddingBottom: "50px"
   }
 });
 

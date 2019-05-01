@@ -6,7 +6,12 @@ class Chart extends React.Component {
     super(props);
     this.state = {
       data: [{ type: "line", x: props.x, y: props.y }],
-      layout: { width: 800, height: 600, title: "Drone Metrics" },
+      layout: {
+        width: 800,
+        height: 600,
+        title: "Drone Metrics",
+        xaxis: { title: "Timestamp", visible: false }
+      },
       frames: [],
       config: {},
       revision: 1
@@ -21,7 +26,13 @@ class Chart extends React.Component {
       this.setState(prevState => {
         return {
           revision: prevState.revision + 1,
-          data: [{ type: "line", x: nextProps.x, y: nextProps.y }]
+          data: [
+            {
+              type: "line",
+              x: nextProps.x,
+              y: nextProps.y
+            }
+          ]
         };
       });
   }
