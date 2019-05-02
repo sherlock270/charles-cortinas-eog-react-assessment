@@ -10,7 +10,10 @@ class Chart extends React.Component {
         width: 800,
         height: 600,
         title: "Drone Metrics",
-        xaxis: { title: "Timestamp", visible: false }
+        xaxis: {
+          title: "Timestamp",
+          type: "date"
+        }
       },
       frames: [],
       config: {},

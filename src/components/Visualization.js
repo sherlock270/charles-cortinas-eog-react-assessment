@@ -51,7 +51,7 @@ class Visualization extends React.Component {
       for (let point of droneData) {
         metrics.push(point.metric);
         let time = new Date(point.timestamp);
-        timestamps.push(time.toString());
+        timestamps.push(time);
       }
     }
 
